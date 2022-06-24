@@ -2,7 +2,7 @@
 
 Reproduction of an french railway signal at the 1/2 scale
 
-# French Section (English Below[linky](https://github.com/b84500/CarreRFN-DIY/blob/main/README.md#english-section-)) :
+# French Section ([English section below](https://github.com/b84500/CarreRFN-DIY/blob/main/README.md#english-section-)) :
 ## Objectif :
 Reproduction d'un signal typique du réseau ferroviaire français à but décoratif
 et à l'échelle 1/2.
