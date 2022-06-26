@@ -1,4 +1,4 @@
-//CarreMQTT Version 0.0.1 Alpha, Ezio Cangialosi, 2022
+//CarreMQTT Version 1.0 Beta, Ezio Cangialosi, 2022
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
@@ -8,24 +8,36 @@
 #define INTOPIC   "CarreMQTT/RX"
 #define ERRORSTR  "Error when trying to understand message or no corresponding action."
 
-#define PINSTRIP 2
-#define NUMPIXELS 5
+#define PINSTRIP 5
+#define NBRPIXELS 10
 
-#define RECO_PAYLOAD  ("P" , "VL", "ACLI", "A", "SCLI", "S", "C", "GetSig") 
-#define SPECIFIC_LED  (   3,    1,      0,   0,      3,   2,   0)  //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
-const byte LED_COL[][3] = {{ 50,  50, 255, 255, 255, 255, 255},
-                           {100, 100, 200, 200,   0,   0,   0},
-                           { 50,  50,   0,   0,   0,   0,   0}};
+const char* RECO_PAYLOAD[10] = {"P" , "VL", "ACLI", "A", "SCLI", "S", "C", "GetSig", "SelfReboot", "Ping"}; 
+const byte SPECIFIC_LED[7] = {   3,    2,       1,   0,   3,      2,   0};  //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
+const byte LED_COL[3][7] = {{   0,     0,     215, 215, 255,    255, 255},//Rouge
+                            {   0,     0,       0,   0,   0,      0,   0},//Bleu
+                            { 255,   255,      90,  90,   0,      0,   0}};//Vert
+const byte NUM_LED_PIXEL[4][7] = {{  6,   6,   2,   2,   4,   4,   4},
+                                  {  7,   7,   3,   3,   5,   5,   5},
+                                  {255, 255, 255, 255, 255, 255,   8},
+                                  {255, 255, 255, 255, 255, 255,   9}};
+                           
+const byte RGB_OEUIT[3] = {255,255,255};
+#define DELAY_CLI 500
+const byte OEUIT_PIXELS[2] = {0,1}; 
 
-const char* ssid = "Livebox-B84500";
-const char* password = "........";
-const char* mqtt_server = "192.168.1.16";
+bool g_flagCli = false;
 
-byte curMode = 6;
+const char* ssid = "YOUR SSID";
+const char* password = "YOUR WIFI PASSWORD";
+const char* mqtt_server = "YOUR BROKER";
+
+byte g_curMode = 6;
+
+long g_lastAttemptLed = 0;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, PINSTRIP, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NBRPIXELS, PINSTRIP, NEO_GRB + NEO_KHZ800);
 
 long lastReconnectAttempt = 0;
 
@@ -89,10 +101,12 @@ boolean reconnect() {
 void setup() {
   Serial.begin (9600); //initialisation de communication série
   strip.begin(); //Init Strip led
+  delay(10);
+  setAllStripBlank();
+  strip.show();
   setup_wifi();
-  client.setServer(server, 1883);//Démarrage serveur mqtt sur port 1883
+  client.setServer(mqtt_server, 1883);//Démarrage serveur mqtt sur port 1883
   client.setCallback(callback);//Ce qui permet de récupérer les messages entrants
-  Ethernet.begin (mac, ip); //initialisation de la communication Ethernet
 
   Serial.println("CarreMQTT Version 0.0.1 Alpha");
 
@@ -117,39 +131,84 @@ void loop(){
   else {
     // Client connected
     client.loop();
-    doLed(SPECIFIC_LED[aActionMode]);
+    if(millis() - g_lastAttemptLed > DELAY_CLI){
+      g_lastAttemptLed = millis();
+      Serial.println("Do Led");
+      doLed();
+    }
   }
 }
 
-void master(String message){
-  byte actionMode=checkString(message);//Traitement de la string et renvoie d'un code
-  if(actionMode != 255){//Si il n'y a pas eu d'erreur dans la comprehension de la string
-    selectAction(actionMode);
-  }
-  else{
-    //byte errorStr[200]=+message;
-    client.publish(OUTTOPIC,ERRORSTR);
-  }
-}
-
-byte checkString(String aMessage){
- for(byte i = 0; i < sizeof(RECO_PAYLOAD); i++){
-  if(aMessage == RECO_PAYLOAD[i]){
-    return i;
-  }
- }
- return 255;
-}
-
-void selectAction(byte aActionMode){
-  if(aActionMode < 7){
-    curMode = aActionMode;
-  }
-  else{
-    client.publish(OUTTOPIC,RECO_PAYLOAD[curMode]);
+void master(String msg){
+  for(byte i = 0; i < 10; i++){
+    if(msg == RECO_PAYLOAD[i]){
+      if(i == 7){
+        returnSig();
+      }else if (i == 8){
+        selfReboot();
+      }else if (i == 9){
+        pingReceived();
+      }else{
+        g_lastAttemptLed = 0;
+        g_curMode = i;
+      }
+    }
   }
 }
 
-void doLed(byte options = 0){
+void doLed(){
+  setAllStripBlank();
+  if(SPECIFIC_LED[g_curMode] == 2 || SPECIFIC_LED[g_curMode] == 3){
+    strip.setPixelColor(OEUIT_PIXELS[0], strip.Color(RGB_OEUIT[0], RGB_OEUIT[1], RGB_OEUIT[2]));
+    if(OEUIT_PIXELS[1] < NBRPIXELS){
+      strip.setPixelColor(OEUIT_PIXELS[1], strip.Color(RGB_OEUIT[0], RGB_OEUIT[1], RGB_OEUIT[2]));
+    }
+  }
+  for(unsigned int i = 0; i < 4; i++){
+    if(NUM_LED_PIXEL[i][g_curMode] != 255 && !g_flagCli){
+      strip.setPixelColor(NUM_LED_PIXEL[i][g_curMode], strip.Color(LED_COL[0][g_curMode], LED_COL[1][g_curMode], LED_COL[2][g_curMode]));
+      Serial.println("Set lum");
+    }
+  }
+  if(SPECIFIC_LED[g_curMode] == 1 || SPECIFIC_LED[g_curMode] == 3){
+    g_flagCli = !g_flagCli;
+  }else{
+    g_flagCli = false;
+  }
   
+//  strip.setPixelColor(0, strip.Color(255,255,255));
+//  strip.setPixelColor(1, strip.Color(0,0,0));
+//  strip.setPixelColor(2, strip.Color(255,0,0));
+//  strip.setPixelColor(3, strip.Color(0,0,0));
+//  strip.setPixelColor(4, strip.Color(255,0,0));
+  strip.show();
+}
+
+void selfReboot(){
+  Serial.println("Ordre de redémarrage reçu\nExecution dans 5 secondes");
+  client.publish(OUTTOPIC,"Redémarrage demandé, execution dans 5 secondes...");
+  delay(5000);
+  Serial.println("Redémarrage");
+  client.publish(OUTTOPIC,"Rebooting, See you soon world !");
+  delay(100);
+  resetFunc();
+}
+
+void returnSig(){
+  Serial.println("Demande de retour de l'image affichée");
+  client.publish(OUTTOPIC,RECO_PAYLOAD[g_curMode]);
+  Serial.println("Image actuelle envoyée");
+  delay(100);
+}
+
+void setAllStripBlank(){
+  for(unsigned int i = 0; i < NBRPIXELS ; i++){
+    strip.setPixelColor(i, strip.Color(0,0,0));
+  }
+}
+
+void pingReceived(){
+  Serial.println("Ping reçu, renvoi d'un 'pong'");
+  client.publish(OUTTOPIC,"Pong");
+  delay(10);
 }
