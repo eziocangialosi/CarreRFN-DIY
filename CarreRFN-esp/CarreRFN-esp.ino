@@ -12,7 +12,7 @@
 #define NBRPIXELS 10
 
 const char* RECO_PAYLOAD[10] = {"P" , "VL", "ACLI", "A", "SCLI", "S", "C", "GetSig", "SelfReboot", "Ping"}; 
-const byte SPECIFIC_LED[7] = {   3,    2,       1,   0,   3,      2,   0};  //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
+const byte SPECIFIC_LED[7] = {   3,    2,       3,   2,   3,      2,   0};  //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
 const byte LED_COL[3][7] = {{   0,     0,     215, 215, 255,    255, 255},//Rouge
                             {   0,     0,       0,   0,   0,      0,   0},//Bleu
                             { 255,   255,      90,  90,   0,      0,   0}};//Vert
@@ -86,7 +86,7 @@ boolean reconnect() {
   if (client.connect("CarreMQTT")) {
     Serial.println("connected");
     //Une fois connectée on publie un msg sur le topic de status
-    client.publish(OUTTOPIC,"CarreMQTT V0.0.1 Alpha Connected");
+    client.publish(OUTTOPIC,"CarreMQTT Version 1.0 Beta Connected");
     //Et on écoute sur le topic de commande
     client.subscribe(INTOPIC);
     return client.connected();
@@ -108,7 +108,7 @@ void setup() {
   client.setServer(mqtt_server, 1883);//Démarrage serveur mqtt sur port 1883
   client.setCallback(callback);//Ce qui permet de récupérer les messages entrants
 
-  Serial.println("CarreMQTT Version 0.0.1 Alpha");
+  Serial.println("CarreMQTT Version 1.0 Beta");
 
   delay(1000);
 
