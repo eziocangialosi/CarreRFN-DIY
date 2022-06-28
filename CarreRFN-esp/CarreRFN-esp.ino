@@ -11,15 +11,18 @@
 #define PINSTRIP 5
 #define NBRPIXELS 10
 
+#define NBRIMAGES 7
+#define NBRPIXELS_PER_IMG 4
+
 const char* RECO_PAYLOAD[10] = {"P" , "VL", "ACLI", "A", "SCLI", "S", "C", "GetSig", "SelfReboot", "Ping"}; 
-const byte SPECIFIC_LED[7] = {   3,    2,       3,   2,   3,      2,   0};  //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
-const byte LED_COL[3][7] = {{   0,     0,     215, 215, 255,    255, 255},//Rouge
-                            {   0,     0,       0,   0,   0,      0,   0},//Bleu
-                            { 255,   255,      90,  90,   0,      0,   0}};//Vert
-const byte NUM_LED_PIXEL[4][7] = {{  6,   6,   2,   2,   4,   4,   4},
-                                  {  7,   7,   3,   3,   5,   5,   5},
-                                  {255, 255, 255, 255, 255, 255,   8},
-                                  {255, 255, 255, 255, 255, 255,   9}};
+const byte SPECIFIC_LED[NBRIMAGES] = {  3,   2,   3,   2,   3,   2,   0}; //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
+const byte LED_COL[3][NBRIMAGES] = {{   0,   0, 215, 215, 255, 255, 255},//Rouge
+                                    {   0,   0,   0,   0,   0,   0,   0},//Bleu
+                                    { 255, 255,  90,  90,   0,   0,   0}};//Vert
+const byte NUM_LED_PIXEL[NBRPIXELS_PER_IMG][NBRIMAGES] = {{  6,   6,   2,   2,   4,   4,   4},
+                                                          {  7,   7,   3,   3,   5,   5,   5},
+                                                          {255, 255, 255, 255, 255, 255,   8},
+                                                          {255, 255, 255, 255, 255, 255,   9}};
                            
 const byte RGB_OEUIT[3] = {255,255,255};
 #define DELAY_CLI 500
@@ -158,29 +161,24 @@ void master(String msg){
 
 void doLed(){
   setAllStripBlank();
-  if(SPECIFIC_LED[g_curMode] == 2 || SPECIFIC_LED[g_curMode] == 3){
+  if(SPECIFIC_LED[g_curMode] & 0x02){
     strip.setPixelColor(OEUIT_PIXELS[0], strip.Color(RGB_OEUIT[0], RGB_OEUIT[1], RGB_OEUIT[2]));
     if(OEUIT_PIXELS[1] < NBRPIXELS){
       strip.setPixelColor(OEUIT_PIXELS[1], strip.Color(RGB_OEUIT[0], RGB_OEUIT[1], RGB_OEUIT[2]));
     }
   }
-  for(unsigned int i = 0; i < 4; i++){
-    if(NUM_LED_PIXEL[i][g_curMode] != 255 && !g_flagCli){
+  for(unsigned int i = 0; i < NBRPIXELS_PER_IMG; i++){
+    if(NUM_LED_PIXEL[i][g_curMode] < NBRPIXELS && !g_flagCli){
       strip.setPixelColor(NUM_LED_PIXEL[i][g_curMode], strip.Color(LED_COL[0][g_curMode], LED_COL[1][g_curMode], LED_COL[2][g_curMode]));
       Serial.println("Set lum");
     }
   }
-  if(SPECIFIC_LED[g_curMode] == 1 || SPECIFIC_LED[g_curMode] == 3){
+  if(SPECIFIC_LED[g_curMode] & 0x01){
     g_flagCli = !g_flagCli;
   }else{
     g_flagCli = false;
   }
   
-//  strip.setPixelColor(0, strip.Color(255,255,255));
-//  strip.setPixelColor(1, strip.Color(0,0,0));
-//  strip.setPixelColor(2, strip.Color(255,0,0));
-//  strip.setPixelColor(3, strip.Color(0,0,0));
-//  strip.setPixelColor(4, strip.Color(255,0,0));
   strip.show();
 }
 
