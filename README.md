@@ -3,6 +3,13 @@
 Reproduction of an french railway signal at the 1/2 scale
 
 # French Section (English section below) :
+
+##Avancement du projet :
+Actuellement le projet est complété à 75%, il ne manque qu'a imprimer les "FondLED" pour les feux principaux, faire
+découper et coller les décorations de la cible et également d'assembler et de souder la partie électronique et éléctrique.
+
+![Photo du "carré" avec les diffuseurs des feux principaux et l'oeuilleton terminé](https://github.com/b84500/CarreRFN-DIY/blob/main/img/avcmentfinjuin.jpg)
+
 ## Objectif :
 Reproduction d'un signal typique du réseau ferroviaire français à but décoratif
 et à l'échelle 1/2.
@@ -42,6 +49,12 @@ Le principal point de décoration sur le projet, est le contour blanc de la cibl
 la plus adéquate me semble être la découpe de vinyle autocollant.
 
 # English Section :
+##Project progreess :
+The project is currently 75% complete, all that is missing is printing the "FondLED" for the main lights,
+having the target decorations cut and glued and also assembling and soldering the electronic and electrical part.
+
+![Photo of the "carré" with the diffusers of the main lights and the finished eyecup](https://github.com/b84500/CarreRFN-DIY/blob/main/img/avcmentfinjuin.jpg)
+
 ## Goal :
 Reproduction of a typical french railway network signal for decorative purposes and at the 1/2 scale.
 In details, that's a "carré" with 5 lights (including 1 blocked) and one eyecup.
