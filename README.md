@@ -3,8 +3,7 @@
 Reproduction of an french railway signal at the 1/2 scale
 
 # French Section (English section below) :
-
-##Avancement du projet :
+## Avancement du projet :
 Actuellement le projet est complété à 75%, il ne manque qu'a imprimer les "FondLED" pour les feux principaux, faire
 découper et coller les décorations de la cible et également d'assembler et de souder la partie électronique et éléctrique.
 
@@ -49,7 +48,7 @@ Le principal point de décoration sur le projet, est le contour blanc de la cibl
 la plus adéquate me semble être la découpe de vinyle autocollant.
 
 # English Section :
-##Project progreess :
+## Project progreess :
 The project is currently 75% complete, all that is missing is printing the "FondLED" for the main lights,
 having the target decorations cut and glued and also assembling and soldering the electronic and electrical part.
 
