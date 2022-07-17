@@ -4,10 +4,12 @@ Reproduction of an french railway signal at the 1/2 scale
 
 # French Section (English section below) :
 ## Avancement du projet :
-Actuellement le projet est complété à 75%, il ne manque qu'a imprimer les "FondLED" pour les feux principaux, faire
-découper et coller les décorations de la cible et également d'assembler et de souder la partie électronique et éléctrique.
+Actuellement le projet est complété à 90%, la décoration de la cible est terminée et chaque feu est cablé, prêt à être monté !
+Le prochain objectif du projet est de cabler toute la partie alimentation à l'arrière de la cible puis de tout connecter !
+NB : Des photos de la connectique choisie pour connecter les feux au faisceau éléctrique et du cablage à l'interieur des feux
+sont disponibles dans le dossier "./img".
 
-![Photo du "carré" avec les diffuseurs des feux principaux et l'oeuilleton terminé](https://github.com/b84500/CarreRFN-DIY/blob/main/img/avcmentfinjuin.jpg)
+![Photo de la cible décorée](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cibleWithDeco.jpg)
 
 ## Objectif :
 Reproduction d'un signal typique du réseau ferroviaire français à but décoratif
@@ -49,10 +51,12 @@ la plus adéquate me semble être la découpe de vinyle autocollant.
 
 # English Section :
 ## Project progreess :
-The project is currently 75% complete, all that is missing is printing the "FondLED" for the main lights,
-having the target decorations cut and glued and also assembling and soldering the electronic and electrical part.
+Currently the project is 90% complete, the decoration of the target is finished and each light is wired, ready to be mounted!
+The next objective of the project is to wire all the power supply part at the back of the target and then to connect everything!
+NB: Photos of the connectors chosen to connect the lights to the electrical harness and of the wiring inside the lights
+are available in the "./img" folder.
 
-![Photo of the "carré" with the diffusers of the main lights and the finished eyecup](https://github.com/b84500/CarreRFN-DIY/blob/main/img/avcmentfinjuin.jpg)
+![Photo of the cible decorated](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cibleWithDeco.jpg)
 
 ## Goal :
 Reproduction of a typical french railway network signal for decorative purposes and at the 1/2 scale.
