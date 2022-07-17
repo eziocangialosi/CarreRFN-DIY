@@ -9,20 +9,24 @@
 #define ERRORSTR  "Error when trying to understand message or no corresponding action."
 
 #define PINSTRIP 5
-#define NBRPIXELS 10
+#define NBRPIXELS 18
 
 #define NBRIMAGES 7
-#define NBRPIXELS_PER_IMG 4
+#define NBRPIXELS_PER_IMG 8
 
 const char* RECO_PAYLOAD[10] = {"P" , "VL", "ACLI", "A", "SCLI", "S", "C", "GetSig", "SelfReboot", "Ping"}; 
 const byte SPECIFIC_LED[NBRIMAGES] = {  3,   2,   3,   2,   3,   2,   0}; //2 = Oeuilleton, 1 = Cli, 3 = les deux, 0 = aucun
 const byte LED_COL[3][NBRIMAGES] = {{   0,   0, 215, 215, 255, 255, 255},//Rouge
                                     {   0,   0,   0,   0,   0,   0,   0},//Bleu
                                     { 255, 255,  90,  90,   0,   0,   0}};//Vert
-const byte NUM_LED_PIXEL[NBRPIXELS_PER_IMG][NBRIMAGES] = {{  6,   6,   2,   2,   4,   4,   4},
-                                                          {  7,   7,   3,   3,   5,   5,   5},
-                                                          {255, 255, 255, 255, 255, 255,   8},
-                                                          {255, 255, 255, 255, 255, 255,   9}};
+const byte NUM_LED_PIXEL[NBRPIXELS_PER_IMG][NBRIMAGES] = {{ 10,  10,   2,   2,   6,   6,   6},
+                                                          { 11,  11,   3,   3,   7,   7,   7},
+                                                          { 12,  12,   4,   4,   8,   8,   8},
+                                                          { 13,  13,   5,   5,   9,   9,   9},
+                                                          {255, 255, 255, 255, 255, 255,  14},
+                                                          {255, 255, 255, 255, 255, 255,  15},
+                                                          {255, 255, 255, 255, 255, 255,  16},
+                                                          {255, 255, 255, 255, 255, 255,  17}};
                            
 const byte RGB_OEUIT[3] = {255,255,255};
 #define DELAY_CLI 500
