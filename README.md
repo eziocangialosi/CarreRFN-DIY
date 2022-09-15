@@ -8,7 +8,7 @@ A ce jour, le projet est fini à 98%, tout les feux sont montés et cablés. La 
 et la partie "intelligence" est installée et fonctionnelle. Il reste à fabriquer un support pour fixer la cible au mur.
 Les casquettes et l'oeuilleton seront montés à l'issue de la fabrication du dit support.
 
-![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98%.jpg)
+![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98%25.jpg)
 
 ## Objectif :
 Reproduction d'un signal typique du réseau ferroviaire français à but décoratif
@@ -59,7 +59,7 @@ To date, the project is 98% finished, all the lights are mounted and wired. The 
 and the "intelligence" part is installed and functional. It remains to make a bracket to fix the target to the wall.
 The caps and the eyepiece will be mounted after the manufacturing of the said support.
 
-![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98%.jpg)
+![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98%25.jpg)
 
 ## Goal :
 Reproduction of a typical french railway network signal for decorative purposes and at the 1/2 scale.
