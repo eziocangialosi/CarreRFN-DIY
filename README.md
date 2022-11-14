@@ -4,11 +4,12 @@ Reproduction of an french railway signal at the 1/2 scale
 
 # French Section (English section below) :
 ## Avancement du projet :
-A ce jour, le projet est fini à 98%, tout les feux sont montés et cablés. La décoration est également terminée
-et la partie "intelligence" est installée et fonctionnelle. Il reste à fabriquer un support pour fixer la cible au mur.
-Les casquettes et l'oeuilleton seront montés à l'issue de la fabrication du dit support.
+Le projet est aujourd'hui terminé ! Tout les feux sont montés et cablés. La décoration est également terminée
+et la partie "intelligence" est installée et fonctionnelle.
+NB : Le support qui permet de fixer le signal au mur ne sera pas référencé car adapté à mon mur.
+Il vous faudra donc adapter le support à votre mur par exemple.
 
-![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98.jpg)
+![Photo du carre terminé et fixé](https://github.com/b84500/CarreRFN-DIY/blob/main/img/carreTermine.jpg)
 
 ## Objectif :
 Reproduction d'un signal typique du réseau ferroviaire français à but décoratif
@@ -55,11 +56,13 @@ avec du vinyle autocollant blanc découpé au scalpel. Le rendu est plutôt sati
 
 # English Section :
 ## Project progreess :
-To date, the project is 98% finished, all the lights are mounted and wired. The decoration is also finished
-and the "intelligence" part is installed and functional. It remains to make a bracket to fix the target to the wall.
-The caps and the eyepiece will be mounted after the manufacturing of the said support.
+Now, the project is completely finished, all the lights are mounted and wired. The decoration is also finished
+and the "intelligence" part is installed and functional.
+NB : The support that allows the signal to be fixed to the wall will not be referenced because it is suitable for my wall.
+You will therefore have to adapt the support to your wall, for example.
 
-![Photo de l'avancement à 98%](https://github.com/b84500/CarreRFN-DIY/blob/main/img/cible98.jpg)
+![Pic of the terminated project](https://github.com/b84500/CarreRFN-DIY/blob/main/img/carreTermine.jpg)
+
 
 ## Goal :
 Reproduction of a typical french railway network signal for decorative purposes and at the 1/2 scale.
